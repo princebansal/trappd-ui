@@ -1,5 +1,5 @@
 export const apiConfig = {
-  host: "http://trappd-server-elb-1119120693.ap-south-1.elb.amazonaws.com",
+  host: "https://api.trappd.in",
 };
 
 export function handleErrors(response) {
