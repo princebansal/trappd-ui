@@ -9,7 +9,7 @@ import Insights from "./Insights";
 import SelectCityContainer from "./SelectCityContainer";
 
 const { Header, Footer, Content, Sider } = Layout;
-const { Title } = Typography;
+const { Title, Text } = Typography;
 class Home extends React.Component {
   state = {
     siderCollapsed: true,
@@ -36,17 +36,22 @@ class Home extends React.Component {
     const { cities, loadHomePageData, homePageData, country } = this.props;
     console.log(this.props.counter);
     return (
-      <div className="Home">
+      <div>
         <Layout className="Layout">
           <Header className="LayoutHeader">
-            <div className="logo">
-              <Title level={1}>
-                <Divider type="vertical" style={{ height: "30px" }} />
-                trappd
-              </Title>
-
-              <Divider type="vertical" />
-            </div>
+            <Row>
+              <Col align="center" span={24} className="HomePageBanner">
+                <Text strong className="Title">
+                  This website is under development. Please do not rely on the
+                  given statistics.
+                </Text>
+              </Col>
+            </Row>
+            <Row className="HomeToolbar">
+              <Col align="center" span={24}>
+                <Title level={1}>trappd</Title>
+              </Col>
+            </Row>
           </Header>
           <Layout className="Layout" style={{ marginTop: "20px" }}>
             <Content className="LayoutContent">
