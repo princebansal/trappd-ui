@@ -1,10 +1,9 @@
-import { Col, Layout, Row, Button, Typography, Divider, Result } from "antd";
+import { CloseCircleOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import { Button, Col, Layout, Result, Row, Typography } from "antd";
 import React from "react";
 import { connect } from "react-redux";
 import { loadCities, loadHomePageData } from "../redux/actions/home/home";
 import Dashboard from "./Dashboard";
-
-import { CloseCircleOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import Insights from "./Insights";
 import SelectCityContainer from "./SelectCityContainer";
 
