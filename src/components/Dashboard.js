@@ -6,11 +6,11 @@ import ThingsToDoCard from "./ThingsToDoCard";
 const { Content } = Layout;
 
 class Dashboard extends React.Component {
-  showError = msg => {
+  showError = (msg) => {
     message.error(msg);
   };
   render() {
-    const { onInsightsButtonClicked, dashboardData } = this.props;
+    const { onInsightsButtonClicked, dashboardData, regionName } = this.props;
     const { loading, error, data } = dashboardData;
     return (
       <div className="Dashboard">
@@ -28,7 +28,7 @@ class Dashboard extends React.Component {
                   <DataInsightsCard
                     onInsightsButtonClicked={onInsightsButtonClicked}
                     data={data != null ? data.dashboard.dataInsightsCard : null}
-                    city={data != null ? data.city.name : null}
+                    city={regionName}
                     isLoading={loading}
                   />
                 </Col>
@@ -43,7 +43,7 @@ class Dashboard extends React.Component {
                     items={
                       data != null ? data.dashboard.thingsToDoCard.items : null
                     }
-                    city={data != null ? data.city.name : null}
+                    city={regionName}
                     isLoading={loading}
                   />
                 </Col>

@@ -7,7 +7,7 @@ const { Text } = Typography;
 
 class Insights extends React.Component {
   render() {
-    const { insightsData } = this.props;
+    const { insightsData, regionName } = this.props;
 
     const { loading, error, data } = insightsData;
 
@@ -17,7 +17,7 @@ class Insights extends React.Component {
           <Layout className="Layout" style={{ paddingLeft: "54px" }}>
             <Header className="LayoutHeader">
               <Text strong className="Title">
-                {"All cases in " + data.city.name}
+                {"All cases in " + regionName}
               </Text>
             </Header>
             <Content className="LayoutContent">

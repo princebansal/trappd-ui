@@ -2,7 +2,12 @@ import { CloseCircleOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import { Button, Col, Layout, Result, Row, Typography } from "antd";
 import React from "react";
 import { connect } from "react-redux";
-import { loadCities, loadHomePageData } from "../redux/actions/home/home";
+import {
+  loadCities,
+  loadHomePageData,
+  loadGeo,
+  loadHomePageDataV2,
+} from "../redux/actions/home/home";
 import Dashboard from "./Dashboard";
 import Insights from "./Insights";
 import SelectCityContainer from "./SelectCityContainer";
@@ -16,6 +21,7 @@ class Home extends React.Component {
   };
   componentDidMount() {
     this.props.loadCities(this.props.country);
+    this.props.loadGeo(this.props.country);
   }
 
   toggleSider = () => {
@@ -32,7 +38,14 @@ class Home extends React.Component {
 
   render() {
     const { siderCollapsed, siderWidth } = this.state;
-    const { cities, loadHomePageData, homePageData, country } = this.props;
+    const {
+      cities,
+      geo,
+      loadHomePageData,
+      homePageData,
+      country,
+      regionName,
+    } = this.props;
     console.log(this.props.counter);
     return (
       <div>
@@ -57,7 +70,11 @@ class Home extends React.Component {
               <div>
                 <SelectCityContainer
                   cities={cities}
+                  geo={geo}
                   onCityChanged={(city) => loadHomePageData(city, country)}
+                  onGeoChanged={(geoValue, geoType) =>
+                    loadHomePageData(geoValue, geoType, country)
+                  }
                 />
                 {homePageData.data != null || homePageData.loading ? (
                   <Row>
@@ -72,6 +89,7 @@ class Home extends React.Component {
                         onInsightsButtonClicked={this.toggleSider}
                         dashboardData={homePageData}
                         isLoading={homePageData.loading}
+                        regionName={regionName}
                       />
                     </Col>
 
@@ -82,7 +100,10 @@ class Home extends React.Component {
                       lg={{ span: 8 }}
                       xl={{ span: 8 }}
                     >
-                      <Insights insightsData={homePageData} />
+                      <Insights
+                        insightsData={homePageData}
+                        regionName={regionName}
+                      />
                     </Col>
                   </Row>
                 ) : (
@@ -144,17 +165,22 @@ class Home extends React.Component {
   }
 }
 
-const mapStateToProps = ({ home: { cities, homePageData, country } }) => ({
+const mapStateToProps = ({
+  home: { cities, geo, homePageData, country, regionName },
+}) => ({
   cities,
+  geo,
   homePageData,
   country,
+  regionName,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     loadCities: (countryCode) => dispatch(loadCities(countryCode)),
-    loadHomePageData: (cityCode, countryCode) =>
-      dispatch(loadHomePageData(cityCode, countryCode)),
+    loadGeo: (countryCode) => dispatch(loadGeo(countryCode)),
+    loadHomePageData: (geoValue, geoType, countryCode) =>
+      dispatch(loadHomePageDataV2(geoValue, geoType, countryCode)),
   };
 };
 

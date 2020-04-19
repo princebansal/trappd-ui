@@ -1,5 +1,5 @@
 export const apiConfig = {
-  host: "https://api.trappd.in",
+  host: "http://localhost:8080",
 };
 
 export function handleErrors(response) {
