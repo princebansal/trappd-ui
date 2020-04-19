@@ -1,5 +1,5 @@
-import { Card, Layout, Typography, Button, Avatar } from "antd";
 import { SyncOutlined } from "@ant-design/icons";
+import { Avatar, Button, Card, Layout, Typography } from "antd";
 import React from "react";
 const { Text, Title } = Typography;
 const { Content, Footer } = Layout;
@@ -7,14 +7,14 @@ class ThingsToDoCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentIndex: 0
+      currentIndex: 0,
     };
   }
-  handleButtonClick = event => {
+  handleButtonClick = (event) => {
     console.log(event);
     const { items } = this.props;
     this.setState({
-      currentIndex: Math.floor(Math.random() * items.length)
+      currentIndex: Math.floor(Math.random() * items.length),
     });
   };
 
@@ -35,7 +35,7 @@ class ThingsToDoCard extends React.Component {
                   position: "absolute",
                   bottom: 0,
                   right: 0,
-                  left: 0
+                  left: 0,
                 }
               : {}
           }
@@ -47,7 +47,7 @@ class ThingsToDoCard extends React.Component {
                 backgroundImage: "none",
                 width: "100px",
                 height: "100px",
-                opacity: "0.2"
+                opacity: "0.2",
               }}
             />
           }
@@ -56,14 +56,14 @@ class ThingsToDoCard extends React.Component {
             <Layout className="Layout NoBg">
               <Content
                 style={{
-                  padding: "24px"
+                  padding: "24px",
                 }}
               >
                 <div>
                   <Text
                     style={{
                       opacity: 0.67,
-                      color: "white"
+                      color: "white",
                     }}
                   >
                     {"Things to do when you're in " + city}
@@ -81,7 +81,7 @@ class ThingsToDoCard extends React.Component {
                   style={{
                     opacity: 0.67,
                     color: "white",
-                    display: "inline-block"
+                    display: "inline-block",
                   }}
                 >
                   What else can I do?
@@ -90,7 +90,7 @@ class ThingsToDoCard extends React.Component {
                     style={{
                       marginLeft: "10px",
                       backgroundColor: "#6186E6",
-                      border: "none"
+                      border: "none",
                     }}
                     icon={<SyncOutlined style={{ color: "white" }} />}
                     onClick={this.handleButtonClick}

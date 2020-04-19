@@ -4,7 +4,6 @@ import React from "react";
 import { connect } from "react-redux";
 import {
   loadCities,
-  loadHomePageData,
   loadGeo,
   loadHomePageDataV2,
 } from "../redux/actions/home/home";

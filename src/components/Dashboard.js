@@ -1,4 +1,4 @@
-import { Col, Layout, Row, message } from "antd";
+import { Col, Layout, message, Row } from "antd";
 import React from "react";
 import DataInsightsCard from "./DataInsightsCard";
 import MoreInformationContainer from "./MoreInformationContainer";

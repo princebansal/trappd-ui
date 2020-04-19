@@ -1,5 +1,5 @@
-import { Card, Layout, Typography, Avatar, Button } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import { Avatar, Button, Card, Layout, Typography } from "antd";
 import React from "react";
 const { Text, Title } = Typography;
 const { Content, Footer } = Layout;
@@ -20,7 +20,7 @@ class DataInsightsCard extends React.Component {
                   position: "absolute",
                   bottom: 0,
                   right: 0,
-                  left: 0
+                  left: 0,
                 }
               : {}
           }
@@ -32,7 +32,7 @@ class DataInsightsCard extends React.Component {
                 backgroundColor: "#99CFDA",
                 padding: "10px",
                 color: "white",
-                fontWeight: "bold"
+                fontWeight: "bold",
               }}
             >
               {data != null ? data.date : "-"}
@@ -46,7 +46,7 @@ class DataInsightsCard extends React.Component {
                 backgroundImage: "none",
                 width: "100px",
                 height: "100px",
-                opacity: "0.4"
+                opacity: "0.4",
               }}
             />
           }
@@ -55,10 +55,10 @@ class DataInsightsCard extends React.Component {
             <Layout className="Layout NoBg">
               <Content
                 style={{
-                  padding: "24px"
+                  padding: "24px",
                 }}
               >
-                {data.items.map(item => (
+                {data.items.map((item) => (
                   <div>
                     <Text style={{ opacity: 0.67, color: "white" }}>
                       {item.title}
@@ -80,7 +80,7 @@ class DataInsightsCard extends React.Component {
                   style={{
                     opacity: 0.67,
                     color: "white",
-                    display: "inline-block"
+                    display: "inline-block",
                   }}
                 >
                   {"View all cases in" + city}
@@ -89,7 +89,7 @@ class DataInsightsCard extends React.Component {
                     style={{
                       marginLeft: "10px",
                       backgroundColor: "#59BCD2",
-                      border: "none"
+                      border: "none",
                     }}
                     icon={<ArrowRightOutlined style={{ color: "white" }} />}
                     onClick={this.props.onInsightsButtonClicked}
