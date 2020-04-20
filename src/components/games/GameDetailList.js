@@ -1,10 +1,9 @@
-import { Col, Layout, Row, Select, Spin, Typography } from "antd";
+import { Col, Layout, Row, Spin, Typography } from "antd";
 import React from "react";
 import { connect } from "react-redux";
 import GameDetailCard from "./GameDetailCard";
 const { Header, Content } = Layout;
 const { Text } = Typography;
-const { Option } = Select;
 
 class GameDetailList extends React.Component {
   render() {
