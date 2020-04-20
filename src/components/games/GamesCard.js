@@ -2,9 +2,10 @@ import { SyncOutlined } from "@ant-design/icons";
 import { Avatar, Button, Card, Layout, Typography } from "antd";
 import React from "react";
 import { connect } from "react-redux";
+import { changeActiveDetailPane } from "../../redux/actions/home/home";
 const { Text, Title } = Typography;
 const { Content, Footer } = Layout;
-class ThingsToDoCard extends React.Component {
+class GamesCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,23 +13,28 @@ class ThingsToDoCard extends React.Component {
     };
   }
   handleButtonClick = (event) => {
-    const { items } = this.props.homePageData.data.dashboard.thingsToDoCard;
+    const {
+      data: { quickGameList: items },
+    } = this.props.quickGameData;
     const { currentIndex } = this.state;
     this.setState({
       currentIndex: currentIndex + 1 > items.length - 1 ? 0 : currentIndex + 1,
     });
   };
 
+  handleHowToPlayClicked = (event) => {
+    this.props.setActiveDetailPaneToGames();
+  };
+
   render() {
     const { currentIndex } = this.state;
-    const { homePageData, regionName } = this.props;
-    const { loading: isLoading, data } = homePageData;
-
-    const thingsToDoCard = data != null ? data.dashboard.thingsToDoCard : null;
+    const { quickGameData } = this.props;
+    const { isLoading, data } = quickGameData;
+    const { quickGameList: items } = data || {};
     return (
       <div>
         <Card
-          className="ThingsToDoCard"
+          className="GamesCard"
           style={{ position: "relative" }}
           loading={isLoading}
           headStyle={{ border: "none" }}
@@ -45,7 +51,7 @@ class ThingsToDoCard extends React.Component {
           }
           title={
             <Avatar
-              src="thingsToDoCard.png"
+              src="gamesCard.png"
               style={{
                 backgroundColor: "transparent",
                 backgroundImage: "none",
@@ -56,7 +62,7 @@ class ThingsToDoCard extends React.Component {
             />
           }
         >
-          {thingsToDoCard && (
+          {items && (
             <Layout className="Layout NoBg">
               <Content
                 style={{
@@ -70,11 +76,25 @@ class ThingsToDoCard extends React.Component {
                       color: "white",
                     }}
                   >
-                    {"Things to do when you're in " + regionName}
+                    Games to play
                   </Text>
                   <Title level={2} style={{ color: "white", marginTop: "5px" }}>
-                    {thingsToDoCard.items[currentIndex]}
+                    {items[currentIndex].title}
                   </Title>
+                </div>
+                <div>
+                  <Button
+                    style={{
+                      marginLeft: "10px",
+                      backgroundColor: "#6186E6",
+                      border: "none",
+                      color: "white",
+                      borderRadius: 20,
+                    }}
+                    onClick={this.handleHowToPlayClicked}
+                  >
+                    How to play
+                  </Button>
                 </div>
               </Content>
               <Footer
@@ -88,7 +108,7 @@ class ThingsToDoCard extends React.Component {
                     display: "inline-block",
                   }}
                 >
-                  What else can I do?
+                  Tell me another game
                   <Button
                     shape="circle"
                     style={{
@@ -109,9 +129,12 @@ class ThingsToDoCard extends React.Component {
   }
 }
 
-const mapStateToProps = ({ home: { homePageData, country, regionName } }) => ({
-  homePageData,
-  country,
-  regionName,
+const mapStateToProps = ({ home: { quickGameData } }) => ({
+  quickGameData,
 });
-export default connect(mapStateToProps, null)(ThingsToDoCard);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setActiveDetailPaneToGames: () => dispatch(changeActiveDetailPane("games")),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(GamesCard);

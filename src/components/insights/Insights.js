@@ -2,6 +2,7 @@ import { Layout, Spin, Typography } from "antd";
 import React from "react";
 import InsightsCardScrollable from "./InsightsCardScrollable";
 import InsightsTimeline from "./InsightsTimeline";
+import { connect } from "react-redux";
 const { Header, Content } = Layout;
 const { Text } = Typography;
 
@@ -13,7 +14,7 @@ class Insights extends React.Component {
 
     return (
       <div>
-        {!loading && error == null && (
+        {!loading && error == null && data && (
           <Layout className="Layout" style={{ paddingLeft: "54px" }}>
             <Header className="LayoutHeader">
               <Text strong className="Title">
@@ -36,4 +37,10 @@ class Insights extends React.Component {
   }
 }
 
-export default Insights;
+const mapStateToProps = ({
+  home: { homePageData: insightsData, regionName },
+}) => ({
+  insightsData,
+  regionName,
+});
+export default connect(mapStateToProps, null)(Insights);
