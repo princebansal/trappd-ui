@@ -6,31 +6,17 @@ const { Option, OptGroup } = Select;
 
 class SelectCityContainer extends React.Component {
   onCityChanged = (value, option) => {
-    console.log(`selected ${value}`, option);
     this.props.onCityChanged(value, option.type);
   };
   onGeoChanged = (value, option) => {
-    console.log(`selected ${value}`, option);
     this.props.onGeoChanged(
       option.type === "city" ? value + option.state : value,
       option.type
     );
   };
 
-  onBlur = () => {
-    console.log("blur");
-  };
-
-  onFocus = () => {
-    console.log("focus");
-  };
-
-  onSearch = (val) => {
-    console.log("search:", val);
-  };
   render() {
-    const { cities, geo } = this.props;
-    console.log(cities);
+    const { geo } = this.props;
     return (
       <div className="SelectCityContainer">
         <Select
@@ -46,6 +32,14 @@ class SelectCityContainer extends React.Component {
           onSearch={this.onSearch}
         >
           <Option disabled>Select region</Option>
+          <OptGroup label="Countries">
+            {geo.items.countries &&
+              geo.items.countries.map((country) => (
+                <Option value={country.code} key={country.code} type="country">
+                  {country.name}
+                </Option>
+              ))}
+          </OptGroup>
           <OptGroup label="States">
             {geo.items.states &&
               geo.items.states.map((state) => (
@@ -68,7 +62,7 @@ class SelectCityContainer extends React.Component {
               ))}
           </OptGroup>
         </Select>
-        <Spin style={{ marginLeft: "10px" }} spinning={cities.loading} />
+        <Spin style={{ marginLeft: "10px" }} spinning={geo.loading} />
       </div>
     );
   }

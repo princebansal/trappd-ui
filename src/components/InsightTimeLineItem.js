@@ -4,7 +4,6 @@ const { Title, Text } = Typography;
 class InsightTimeLineItem extends React.Component {
   render() {
     const { date, day, title, subtitle } = this.props.details;
-    console.log(this.props.counter);
     return (
       <div>
         <Row>

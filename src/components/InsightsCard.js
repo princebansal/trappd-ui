@@ -4,7 +4,6 @@ const { Title } = Typography;
 class InsightsCard extends React.Component {
   render() {
     const { title, value } = this.props.cardDetails;
-    console.log(this.props.counter);
     return (
       <div>
         <Card

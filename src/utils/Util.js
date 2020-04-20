@@ -1,5 +1,4 @@
 export function getRegionName(obj) {
-  console.log("getRegionName", obj);
   if (obj != null) {
     switch (obj.geographyType) {
       case "CITY":

@@ -1,49 +1,5 @@
-import { LOAD_CITIES, LOAD_HOME_PAGE_DATA, LOAD_GEO } from "./actionTypes";
+import { LOAD_HOME_PAGE_DATA, LOAD_GEO } from "./actionTypes";
 import { apiConfig, handleErrors } from "../../../config";
-
-export const loadCities = (countryCode) => {
-  return (dispatch) => {
-    dispatch({
-      type: LOAD_CITIES,
-      data: {
-        error: null,
-        loading: true,
-        items: [],
-      },
-    });
-
-    return fetch(
-      apiConfig.host + "/home/getAllCities?countryCode=" + countryCode
-    )
-      .then((response) => handleErrors(response))
-      .then(
-        (response) => response.json(),
-        (error) => {
-          console.log("An error occurred.", error);
-          dispatch({
-            type: LOAD_CITIES,
-            data: {
-              error: "Error in loading",
-              loading: false,
-              items: [],
-            },
-          });
-          return Promise.reject();
-        }
-      )
-      .then((json) => {
-        console.log("Response: ", json);
-        dispatch({
-          type: LOAD_CITIES,
-          data: {
-            error: null,
-            loading: false,
-            items: json.cities,
-          },
-        });
-      });
-  };
-};
 
 export const loadGeo = (countryCode) => {
   return (dispatch) => {
@@ -55,6 +11,7 @@ export const loadGeo = (countryCode) => {
         items: {
           cities: [],
           state: [],
+          countries: [],
         },
       },
     });
@@ -64,7 +21,6 @@ export const loadGeo = (countryCode) => {
       .then(
         (response) => response.json(),
         (error) => {
-          console.log("An error occurred.", error);
           dispatch({
             type: LOAD_GEO,
             data: {
@@ -73,6 +29,7 @@ export const loadGeo = (countryCode) => {
               items: {
                 cities: [],
                 state: [],
+                countries: [],
               },
             },
           });
@@ -80,7 +37,6 @@ export const loadGeo = (countryCode) => {
         }
       )
       .then((json) => {
-        console.log("Response: ", json);
         dispatch({
           type: LOAD_GEO,
           data: {
@@ -89,6 +45,7 @@ export const loadGeo = (countryCode) => {
             items: {
               cities: json.cities,
               states: json.states,
+              countries: json.countries,
             },
           },
         });
@@ -96,54 +53,6 @@ export const loadGeo = (countryCode) => {
   };
 };
 
-export const loadHomePageData = (cityCode, countryCode) => {
-  return (dispatch) => {
-    dispatch({
-      type: LOAD_HOME_PAGE_DATA,
-      data: {
-        error: null,
-        loading: true,
-        data: null,
-      },
-    });
-
-    return fetch(
-      apiConfig.host +
-        "/home/getHomePageData?cityCode=" +
-        cityCode +
-        "&countryCode=" +
-        countryCode
-    )
-      .then((response) => handleErrors(response))
-      .then(
-        (response) => response.json(),
-        (error) => {
-          console.log("An error occurred.", error);
-          dispatch({
-            type: LOAD_HOME_PAGE_DATA,
-            data: {
-              error: "Error in loading",
-              loading: false,
-              data: null,
-            },
-          });
-
-          return Promise.reject();
-        }
-      )
-      .then((json) => {
-        console.log("Response: ", json);
-        dispatch({
-          type: LOAD_HOME_PAGE_DATA,
-          data: {
-            error: null,
-            loading: false,
-            data: json,
-          },
-        });
-      });
-  };
-};
 export const loadHomePageDataV2 = (geoValue, geoType) => {
   return (dispatch) => {
     dispatch({
@@ -166,7 +75,6 @@ export const loadHomePageDataV2 = (geoValue, geoType) => {
       .then(
         (response) => response.json(),
         (error) => {
-          console.log("An error occurred.", error);
           dispatch({
             type: LOAD_HOME_PAGE_DATA,
             data: {
@@ -180,7 +88,6 @@ export const loadHomePageDataV2 = (geoValue, geoType) => {
         }
       )
       .then((json) => {
-        console.log("Response: ", json);
         dispatch({
           type: LOAD_HOME_PAGE_DATA,
           data: {

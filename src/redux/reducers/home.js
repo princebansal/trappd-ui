@@ -1,24 +1,16 @@
-import {
-  LOAD_CITIES,
-  LOAD_HOME_PAGE_DATA,
-  LOAD_GEO,
-} from "../actions/home/actionTypes";
+import { LOAD_HOME_PAGE_DATA, LOAD_GEO } from "../actions/home/actionTypes";
 import { getRegionName } from "../../utils/Util";
 
 const initialState = {
   country: "IN",
   regionName: "",
-  cities: {
-    error: null,
-    loading: false,
-    items: [],
-  },
   geo: {
     error: null,
     loading: false,
     items: {
       cities: [],
       states: [],
+      countries: [],
     },
   },
   homePageData: {
@@ -30,11 +22,6 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case LOAD_CITIES:
-      return {
-        ...state,
-        cities: { ...action.data },
-      };
     case LOAD_GEO:
       return {
         ...state,

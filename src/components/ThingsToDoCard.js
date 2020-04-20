@@ -11,7 +11,6 @@ class ThingsToDoCard extends React.Component {
     };
   }
   handleButtonClick = (event) => {
-    console.log(event);
     const { items } = this.props;
     this.setState({
       currentIndex: Math.floor(Math.random() * items.length),

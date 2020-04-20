@@ -2,11 +2,7 @@ import { CloseCircleOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import { Button, Col, Layout, Result, Row, Typography } from "antd";
 import React from "react";
 import { connect } from "react-redux";
-import {
-  loadCities,
-  loadGeo,
-  loadHomePageDataV2,
-} from "../redux/actions/home/home";
+import { loadGeo, loadHomePageDataV2 } from "../redux/actions/home/home";
 import Dashboard from "./Dashboard";
 import Insights from "./Insights";
 import SelectCityContainer from "./SelectCityContainer";
@@ -19,7 +15,6 @@ class Home extends React.Component {
     siderWidth: window.screen.availWidth,
   };
   componentDidMount() {
-    this.props.loadCities(this.props.country);
     this.props.loadGeo(this.props.country);
   }
 
@@ -38,14 +33,12 @@ class Home extends React.Component {
   render() {
     const { siderCollapsed, siderWidth } = this.state;
     const {
-      cities,
       geo,
       loadHomePageData,
       homePageData,
       country,
       regionName,
     } = this.props;
-    console.log(this.props.counter);
     return (
       <div>
         <Layout className="Layout">
@@ -68,7 +61,6 @@ class Home extends React.Component {
             <Content className="LayoutContent">
               <div>
                 <SelectCityContainer
-                  cities={cities}
                   geo={geo}
                   onCityChanged={(city) => loadHomePageData(city, country)}
                   onGeoChanged={(geoValue, geoType) =>
@@ -127,9 +119,6 @@ class Home extends React.Component {
               collapsible
               collapsed={siderCollapsed}
               width={siderWidth}
-              onCollapse={(collapse, type) => {
-                console.log(collapse, type);
-              }}
               style={{
                 display: siderCollapsed ? "none" : "block",
               }}
@@ -165,9 +154,8 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = ({
-  home: { cities, geo, homePageData, country, regionName },
+  home: { geo, homePageData, country, regionName },
 }) => ({
-  cities,
   geo,
   homePageData,
   country,
@@ -176,7 +164,6 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadCities: (countryCode) => dispatch(loadCities(countryCode)),
     loadGeo: (countryCode) => dispatch(loadGeo(countryCode)),
     loadHomePageData: (geoValue, geoType, countryCode) =>
       dispatch(loadHomePageDataV2(geoValue, geoType, countryCode)),
