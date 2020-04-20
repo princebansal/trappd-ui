@@ -1,11 +1,18 @@
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { Avatar, Button, Card, Layout, Typography } from "antd";
 import React from "react";
+import { connect } from "react-redux";
+import { changeActiveDetailPane } from "../redux/actions/home/home";
 const { Text, Title } = Typography;
 const { Content, Footer } = Layout;
 class DataInsightsCard extends React.Component {
   render() {
-    const { data, city, isLoading } = this.props;
+    const { homePageData, regionName } = this.props;
+    const { loading: isLoading, data } = homePageData;
+
+    const dataInsightsCard =
+      data != null ? data.dashboard.dataInsightsCard : null;
+
     return (
       <div>
         <Card
@@ -35,7 +42,7 @@ class DataInsightsCard extends React.Component {
                 fontWeight: "bold",
               }}
             >
-              {data != null ? data.date : "-"}
+              {dataInsightsCard != null ? dataInsightsCard.date : "-"}
             </Text>
           }
           title={
@@ -51,14 +58,14 @@ class DataInsightsCard extends React.Component {
             />
           }
         >
-          {data && (
+          {dataInsightsCard && (
             <Layout className="Layout NoBg">
               <Content
                 style={{
                   padding: "24px",
                 }}
               >
-                {data.items.map((item) => (
+                {dataInsightsCard.items.map((item) => (
                   <div>
                     <Text style={{ opacity: 0.67, color: "white" }}>
                       {item.title}
@@ -73,7 +80,6 @@ class DataInsightsCard extends React.Component {
                 ))}
               </Content>
               <Footer
-                className="DataInsightsCardFooter"
                 style={{ backgroundColor: "#3BA5BC", padding: "12px 24px" }}
               >
                 <Text
@@ -83,8 +89,9 @@ class DataInsightsCard extends React.Component {
                     display: "inline-block",
                   }}
                 >
-                  {"View all cases in" + city}
+                  {"View all cases in " + regionName}
                   <Button
+                    className="DataInsightsCardFooterMobile"
                     shape="circle"
                     style={{
                       marginLeft: "10px",
@@ -93,6 +100,17 @@ class DataInsightsCard extends React.Component {
                     }}
                     icon={<ArrowRightOutlined style={{ color: "white" }} />}
                     onClick={this.props.onInsightsButtonClicked}
+                  />
+                  <Button
+                    className="DataInsightsCardFooterDesktop"
+                    shape="circle"
+                    style={{
+                      marginLeft: "10px",
+                      backgroundColor: "#59BCD2",
+                      border: "none",
+                    }}
+                    icon={<ArrowRightOutlined style={{ color: "white" }} />}
+                    onClick={this.props.setActiveDetailPaneToInsights}
                   />
                 </Text>
               </Footer>
@@ -104,4 +122,15 @@ class DataInsightsCard extends React.Component {
   }
 }
 
-export default DataInsightsCard;
+const mapStateToProps = ({ home: { homePageData, country, regionName } }) => ({
+  homePageData,
+  country,
+  regionName,
+});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setActiveDetailPaneToInsights: () =>
+      dispatch(changeActiveDetailPane("insights")),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(DataInsightsCard);

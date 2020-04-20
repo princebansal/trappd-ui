@@ -1,11 +1,17 @@
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { List, Typography, Button } from "antd";
 import React from "react";
+import { connect } from "react-redux";
 const { Title } = Typography;
 
 class MoreInformationContainer extends React.Component {
   render() {
-    const { data } = this.props;
+    const { homePageData } = this.props;
+
+    const data =
+      homePageData.data != null
+        ? homePageData.data.dashboard.moreInformation
+        : null;
     return (
       <div>
         {data && (
@@ -15,7 +21,7 @@ class MoreInformationContainer extends React.Component {
                 shape="circle"
                 style={{
                   backgroundColor: "#f3f3f3",
-                  border: "none"
+                  border: "none",
                 }}
                 icon={<InfoCircleOutlined style={{ color: "black" }} />}
               />
@@ -26,7 +32,7 @@ class MoreInformationContainer extends React.Component {
               <List
                 size="large"
                 dataSource={data.instructions}
-                renderItem={item => <List.Item>{item}</List.Item>}
+                renderItem={(item) => <List.Item>{item}</List.Item>}
               />
             </div>
           </div>
@@ -35,5 +41,7 @@ class MoreInformationContainer extends React.Component {
     );
   }
 }
-
-export default MoreInformationContainer;
+const mapStateToProps = ({ home: { homePageData } }) => ({
+  homePageData,
+});
+export default connect(mapStateToProps, null)(MoreInformationContainer);

@@ -2,10 +2,14 @@ import { CloseCircleOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import { Button, Col, Layout, Result, Row, Typography } from "antd";
 import React from "react";
 import { connect } from "react-redux";
-import { loadGeo, loadHomePageDataV2 } from "../redux/actions/home/home";
+import {
+  loadGeo,
+  loadHomePageDataV2,
+  loadQuickGameData,
+} from "../redux/actions/home/home";
 import Dashboard from "./Dashboard";
-import Insights from "./Insights";
-import SelectCityContainer from "./SelectCityContainer";
+import DetailPane from "./DetailPane";
+import SelectRegionContainer from "./SelectRegionContainer";
 
 const { Header, Footer, Content, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -35,6 +39,7 @@ class Home extends React.Component {
     const {
       geo,
       loadHomePageData,
+      loadQuickGameData,
       homePageData,
       country,
       regionName,
@@ -60,14 +65,14 @@ class Home extends React.Component {
           <Layout className="Layout" style={{ marginTop: "20px" }}>
             <Content className="LayoutContent">
               <div>
-                <SelectCityContainer
+                <SelectRegionContainer
                   geo={geo}
-                  onCityChanged={(city) => loadHomePageData(city, country)}
-                  onGeoChanged={(geoValue, geoType) =>
-                    loadHomePageData(geoValue, geoType, country)
-                  }
+                  onGeoChanged={(geoValue, geoType) => {
+                    loadHomePageData(geoValue, geoType, country);
+                    loadQuickGameData();
+                  }}
                 />
-                {homePageData.data != null || homePageData.loading ? (
+                {regionName !== null ? (
                   <Row>
                     <Col
                       xs={{ span: 24 }}
@@ -91,10 +96,7 @@ class Home extends React.Component {
                       lg={{ span: 8 }}
                       xl={{ span: 8 }}
                     >
-                      <Insights
-                        insightsData={homePageData}
-                        regionName={regionName}
-                      />
+                      <DetailPane />
                     </Col>
                   </Row>
                 ) : (
@@ -102,9 +104,7 @@ class Home extends React.Component {
                     icon={<InfoCircleOutlined style={{ color: "#ededed" }} />}
                     extra={
                       <Title level={4} style={{ color: "#b0b0b0" }}>
-                        {homePageData.error != null
-                          ? homePageData.error
-                          : "Please select your city above"}
+                        Please select your city above
                       </Title>
                     }
                   />
@@ -134,7 +134,7 @@ class Home extends React.Component {
                 onClick={this.onSiderCloseClicked}
               />
 
-              {homePageData.data && <Insights insightsData={homePageData} />}
+              {regionName != null ? <DetailPane /> : <div />}
             </Sider>
           </Layout>
 
@@ -167,6 +167,7 @@ const mapDispatchToProps = (dispatch) => {
     loadGeo: (countryCode) => dispatch(loadGeo(countryCode)),
     loadHomePageData: (geoValue, geoType, countryCode) =>
       dispatch(loadHomePageDataV2(geoValue, geoType, countryCode)),
+    loadQuickGameData: () => dispatch(loadQuickGameData()),
   };
 };
 

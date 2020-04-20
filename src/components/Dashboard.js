@@ -1,8 +1,8 @@
 import { Col, Layout, message, Row } from "antd";
 import React from "react";
 import DataInsightsCard from "./DataInsightsCard";
+import GamesCard from "./games/GamesCard";
 import MoreInformationContainer from "./MoreInformationContainer";
-import ThingsToDoCard from "./ThingsToDoCard";
 const { Content } = Layout;
 
 class Dashboard extends React.Component {
@@ -10,8 +10,8 @@ class Dashboard extends React.Component {
     message.error(msg);
   };
   render() {
-    const { onInsightsButtonClicked, dashboardData, regionName } = this.props;
-    const { loading, error, data } = dashboardData;
+    const { onInsightsButtonClicked, dashboardData } = this.props;
+    const { error } = dashboardData;
     return (
       <div className="Dashboard">
         {error == null && (
@@ -27,9 +27,6 @@ class Dashboard extends React.Component {
                 >
                   <DataInsightsCard
                     onInsightsButtonClicked={onInsightsButtonClicked}
-                    data={data != null ? data.dashboard.dataInsightsCard : null}
-                    city={regionName}
-                    isLoading={loading}
                   />
                 </Col>
                 <Col
@@ -39,20 +36,12 @@ class Dashboard extends React.Component {
                   lg={{ span: 12 }}
                   xl={{ span: 12 }}
                 >
-                  <ThingsToDoCard
-                    items={
-                      data != null ? data.dashboard.thingsToDoCard.items : null
-                    }
-                    city={regionName}
-                    isLoading={loading}
-                  />
+                  <GamesCard />
                 </Col>
               </Row>
               <Layout className="Layout">
                 <Content style={{ marginTop: "40px" }}>
-                  <MoreInformationContainer
-                    data={data != null ? data.dashboard.moreInformation : null}
-                  />
+                  <MoreInformationContainer />
                 </Content>
               </Layout>
             </Content>

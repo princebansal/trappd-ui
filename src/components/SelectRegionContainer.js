@@ -4,7 +4,7 @@ import React from "react";
 
 const { Option, OptGroup } = Select;
 
-class SelectCityContainer extends React.Component {
+class SelectRegionContainer extends React.Component {
   onCityChanged = (value, option) => {
     this.props.onCityChanged(value, option.type);
   };
@@ -27,9 +27,6 @@ class SelectCityContainer extends React.Component {
           optionFilterProp="children"
           placeholder="Select region"
           onChange={this.onGeoChanged}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-          onSearch={this.onSearch}
         >
           <Option disabled>Select region</Option>
           <OptGroup label="Countries">
@@ -68,4 +65,4 @@ class SelectCityContainer extends React.Component {
   }
 }
 
-export default SelectCityContainer;
+export default SelectRegionContainer;
