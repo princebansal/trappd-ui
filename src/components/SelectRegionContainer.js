@@ -5,9 +5,6 @@ import React from "react";
 const { Option, OptGroup } = Select;
 
 class SelectRegionContainer extends React.Component {
-  onCityChanged = (value, option) => {
-    this.props.onCityChanged(value, option.type);
-  };
   onGeoChanged = (value, option) => {
     this.props.onGeoChanged(
       option.type === "city" ? value + option.state : value,

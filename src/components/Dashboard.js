@@ -10,7 +10,7 @@ class Dashboard extends React.Component {
     message.error(msg);
   };
   render() {
-    const { onInsightsButtonClicked, dashboardData } = this.props;
+    const { onHandleToggleDetailPane, dashboardData } = this.props;
     const { error } = dashboardData;
     return (
       <div className="Dashboard">
@@ -26,7 +26,7 @@ class Dashboard extends React.Component {
                   xl={{ span: 12 }}
                 >
                   <DataInsightsCard
-                    onInsightsButtonClicked={onInsightsButtonClicked}
+                    onInsightsButtonClicked={onHandleToggleDetailPane}
                   />
                 </Col>
                 <Col
@@ -36,11 +36,11 @@ class Dashboard extends React.Component {
                   lg={{ span: 12 }}
                   xl={{ span: 12 }}
                 >
-                  <GamesCard />
+                  <GamesCard onHowToPlayClicked={onHandleToggleDetailPane} />
                 </Col>
               </Row>
               <Layout className="Layout">
-                <Content style={{ marginTop: "40px" }}>
+                <Content style={{ marginTop: "40px", padding: "10px" }}>
                   <MoreInformationContainer />
                 </Content>
               </Layout>

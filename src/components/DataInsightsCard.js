@@ -53,7 +53,7 @@ class DataInsightsCard extends React.Component {
                 backgroundImage: "none",
                 width: "100px",
                 height: "100px",
-                opacity: "0.4",
+                opacity: "1.0",
               }}
             />
           }
@@ -91,7 +91,7 @@ class DataInsightsCard extends React.Component {
                 >
                   {"View all cases in " + regionName}
                   <Button
-                    className="DataInsightsCardFooterMobile"
+                    className="ShowOnMobile"
                     shape="circle"
                     style={{
                       marginLeft: "10px",
@@ -99,10 +99,13 @@ class DataInsightsCard extends React.Component {
                       border: "none",
                     }}
                     icon={<ArrowRightOutlined style={{ color: "white" }} />}
-                    onClick={this.props.onInsightsButtonClicked}
+                    onClick={() => {
+                      this.props.setActiveDetailPaneToInsights();
+                      this.props.onInsightsButtonClicked();
+                    }}
                   />
                   <Button
-                    className="DataInsightsCardFooterDesktop"
+                    className="ShowOnDesktop"
                     shape="circle"
                     style={{
                       marginLeft: "10px",

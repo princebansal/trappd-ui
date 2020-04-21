@@ -56,22 +56,24 @@ class Home extends React.Component {
                 </Text>
               </Col>
             </Row>
-            <Row className="HomeToolbar">
-              <Col align="center" span={24}>
-                <Title level={1}>trappd</Title>
-              </Col>
-            </Row>
           </Header>
           <Layout className="Layout" style={{ marginTop: "20px" }}>
             <Content className="LayoutContent">
               <div>
-                <SelectRegionContainer
-                  geo={geo}
-                  onGeoChanged={(geoValue, geoType) => {
-                    loadHomePageData(geoValue, geoType, country);
-                    loadQuickGameData();
-                  }}
-                />
+                <Row align="middle" className="HomeToolbar">
+                  <Col xs={0} sm={0} md={1} lg={1}>
+                    <Title level={2}>trappd</Title>
+                  </Col>
+                  <Col flex="auto">
+                    <SelectRegionContainer
+                      geo={geo}
+                      onGeoChanged={(geoValue, geoType) => {
+                        loadHomePageData(geoValue, geoType, country);
+                        loadQuickGameData();
+                      }}
+                    />
+                  </Col>
+                </Row>
                 {regionName !== null ? (
                   <Row>
                     <Col
@@ -82,7 +84,7 @@ class Home extends React.Component {
                       xl={{ span: 16 }}
                     >
                       <Dashboard
-                        onInsightsButtonClicked={this.toggleSider}
+                        onHandleToggleDetailPane={this.toggleSider}
                         dashboardData={homePageData}
                         isLoading={homePageData.loading}
                         regionName={regionName}

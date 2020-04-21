@@ -22,10 +22,6 @@ class GamesCard extends React.Component {
     });
   };
 
-  handleHowToPlayClicked = (event) => {
-    this.props.setActiveDetailPaneToGames();
-  };
-
   render() {
     const { currentIndex } = this.state;
     const { quickGameData } = this.props;
@@ -57,7 +53,7 @@ class GamesCard extends React.Component {
                 backgroundImage: "none",
                 width: "100px",
                 height: "100px",
-                opacity: "0.2",
+                opacity: "0.8",
               }}
             />
           }
@@ -84,6 +80,7 @@ class GamesCard extends React.Component {
                 </div>
                 <div>
                   <Button
+                    className="ShowOnDesktop"
                     style={{
                       marginLeft: "10px",
                       backgroundColor: "#6186E6",
@@ -91,7 +88,23 @@ class GamesCard extends React.Component {
                       color: "white",
                       borderRadius: 20,
                     }}
-                    onClick={this.handleHowToPlayClicked}
+                    onClick={this.props.setActiveDetailPaneToGames}
+                  >
+                    How to play
+                  </Button>
+                  <Button
+                    className="ShowOnMobile"
+                    style={{
+                      marginLeft: "10px",
+                      backgroundColor: "#6186E6",
+                      border: "none",
+                      color: "white",
+                      borderRadius: 20,
+                    }}
+                    onClick={() => {
+                      this.props.setActiveDetailPaneToGames();
+                      this.props.onHowToPlayClicked();
+                    }}
                   >
                     How to play
                   </Button>

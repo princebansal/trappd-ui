@@ -2,6 +2,7 @@
 @import "~antd/lib/style/themes/default.less";
 .HomeToolbar {
   padding-top: 20px;
+  margin-left: 54px;
 }
 .logo {
   text-align: center;
@@ -69,24 +70,37 @@
   animation: moveIn 1s;
 }
 
-.DataInsightsCardFooterMobile {
+.ShowOnMobile {
   display: none;
 }
-.DataInsightsCardFooterDesktop {
+.ShowOnDesktop {
   display: inline-block;
 }
 
 @media (max-width: @screen-md-max) {
-  .DataInsightsCardFooterMobile {
+  .ShowOnMobile {
     display: inline-block;
   }
 
-  .DataInsightsCardFooterDesktop {
+  .ShowOnDesktop {
     display: none;
   }
   .SelectCityContainer {
     padding-left: 0px;
     text-align: center;
+  }
+}
+@media (max-width: @screen-sm-max) {
+  .DashboardLayoutContent {
+    padding-right: 20px;
+  }
+  .Dashboard {
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+  .HomeToolbar {
+    padding-top: 0px;
+    margin-left: 0px;
   }
 }
 .Insights {
